@@ -254,7 +254,7 @@ SELECT * FROM contacts WHERE name = '田中 太郎';
 ### 並び替える
 
 ```sql
-SELECT * FROM contacts ORDER BY name;
+SELECT * FROM contacts ORDER BY email;
 ```
 
 LocalStorageでは苦手だった「検索」や「並び替え」が、SQLでは数行で実現できます。

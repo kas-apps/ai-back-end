@@ -77,6 +77,8 @@ Scoop（パッケージマネージャー）または公式サイトのバイナ
 
 まず、Scoopをインストールします。
 
+PowerShell（バージョン5.1以降）を開き、`PS C:\>` プロンプトから以下を実行します。
+
 ```bash
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression
@@ -193,6 +195,10 @@ http://localhost:8000/api/index.php
 > サーバーが `Hello, Backend!` というレスポンスを返しています。  
 > セクション2で学んだ「リクエスト/レスポンス」が、実際に動いている瞬間です。
 
+### サーバーの終了
+
+PHP内蔵サーバーを終了するには、サーバーを起動中のターミナルで`ctrl+c`を実行します。
+
 ---
 
 ## JSONを返すAPIにする
@@ -240,8 +246,16 @@ echo json_encode([
 
 ### 実行する
 
+macOS の場合：
+
 ```bash
 curl http://localhost:8000/api/index.php
+```
+
+Windows の場合： `curl` コマンドに `.exe` を付けます。
+
+```bash
+curl.exe http://localhost:8000/api/index.php
 ```
 
 ターミナルに以下のようなレスポンスが表示されます。
@@ -286,11 +300,23 @@ if ($path === "/api/hello") {
 
 以下のURLにアクセスして、それぞれ異なるレスポンスが返ることを確認します。
 
+macOS の場合：
+
 ```bash
 curl http://localhost:8000/api/hello
 # → {"message":"Hello"}
 
 curl http://localhost:8000/api/other
+# → {"error":"Not Found"}
+```
+
+Windows の場合：
+
+```bash
+curl.exe http://localhost:8000/api/hello
+# → {"message":"Hello"}
+
+curl.exe http://localhost:8000/api/other
 # → {"error":"Not Found"}
 ```
 

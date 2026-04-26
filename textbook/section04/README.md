@@ -71,21 +71,47 @@ echo json_encode($contacts, JSON_UNESCAPED_UNICODE);
 
 確認コマンド：
 
+macOS の場合：
+
 ```bash
 curl -X POST http://localhost:8000/api/index.php \
   -H "Content-Type: application/json" \
   -d '{"name":"田中 太郎","email":"taro@example.com"}'
+```
 
-# 実行結果 → [{"id":1,"name":"田中 太郎","email":"taro@example.com"}]
+Windows の場合：
+PowerShellから外部プログラム `curl.exe` にダブルクォートを含む文字列を渡す際、`"""` （三重引用符）で囲むと正しくエスケープされます。
+
+```bash
+curl.exe -X POST http://localhost:8000/api/index.php `
+-H "Content-Type: application/json" `
+-d '{"""name""":"""田中 太郎""","""email""":"""taro@example.com"""}'
+```
+
+実行結果：
+```bash
+[{"id":1,"name":"田中 太郎","email":"taro@example.com"}]
 ```
 
 このときは一見、登録できたように見えます。
 でも、次に GET しても空です。
 
+macOS の場合：
+
 ```bash
 curl http://localhost:8000/api/index.php
+```
 
-# 実行結果 → []
+Windows の場合：
+
+```bash
+curl.exe http://localhost:8000/api/index.php
+```
+
+実行結果：
+
+```bash
+[]
 ```
 
 `[]` が返ってきます。  

@@ -43,6 +43,26 @@ $pdo = new PDO('sqlite:contacts.db');
 > `contacts.db` のパスは、PHPファイルの実行場所を基準とした相対パスです。  
 > `api/index.php` から見て `contacts.db` が `project/contacts.db` にある場合は、`'sqlite:../contacts.db'` と書きます。
 
+#### pdo_sqlite3 の有効化
+
+Windowsの場合、`php.ini`ファイルを編集して、PDOでSQLiteに接続できるように設定する必要があります。
+
+`C:\Users\[ユーザー名]\scoop\apps\php\current\cli`にある`php.ini`ファイルを開いて、以下の行を探してください：
+
+```ini
+;extension=pdo_sqlite
+;extension=sqlite3
+```
+
+これら2行の先頭にあるセミコロン（;）を消して、以下のようにします：
+
+```ini
+extension=pdo_sqlite
+extension=sqlite3
+```
+
+ファイルを保存した後、PHP内蔵サーバーを再起動してください。
+
 ---
 
 ## APIのファイル構成
@@ -114,15 +134,27 @@ if ($method === "GET" && $id === null) {
 
 ### 確認
 
+macOS の場合：
+
 ```bash
 curl http://localhost:8000/api/contacts
 ```
 
+Windows の場合：
+
+```bash
+curl.exe http://localhost:8000/api/contacts
+```
+
 ```json
 [
-  {"id":"1","name":"鈴木 花子","email":"hanako@example.com","phone":"080-9876-5432"}
+  {"id":2,"name":"鈴木 花子","email":"hanako@example.com","phone":"080-9876-5432"}
 ]
 ```
+
+> Windowsで期待通りの結果が得られない場合、PHP簡易サーバーを実行しているターミナルで以下のログが出ていないか確認してください。
+> PHP Fatal error:  Uncaught PDOException: could not find driver
+> この場合、PDOでSQLiteに接続するドライバが有効になっていない可能性があるので、「pdo_sqlite3 の有効化」を実行してください。
 
 ### コードの意味
 
@@ -156,11 +188,11 @@ if ($method === "GET" && $id !== null) {
 ### 確認
 
 ```bash
-curl http://localhost:8000/api/contacts/1
+curl http://localhost:8000/api/contacts/2
 ```
 
 ```json
-{"id":"1","name":"鈴木 花子","email":"hanako@example.com","phone":"080-9876-5432"}
+{"id":2,"name":"鈴木 花子","email":"hanako@example.com","phone":"080-9876-5432"}
 ```
 
 存在しないIDの場合：
@@ -194,7 +226,7 @@ curl http://localhost:8000/api/contacts/999
 ### 実装
 
 ```php
-if ($method === "POST") {
+if ($method === "POST" && $id === null) {
   $input = json_decode(file_get_contents("php://input"), true);
 
   $stmt = $pdo->prepare(
@@ -217,14 +249,26 @@ if ($method === "POST") {
 
 ### 確認
 
+macOS の場合：
+
 ```bash
 curl -X POST http://localhost:8000/api/contacts \
   -H "Content-Type: application/json" \
   -d '{"name":"田中 太郎","email":"taro@example.com","phone":"090-1111-2222"}'
 ```
 
+Windows の場合：
+
+```bash
+curl.exe -X POST http://localhost:8000/api/contacts `
+ -H "Content-Type: application/json" `
+ -d '{"""name""":"""田中 太郎""","""email""":"""taro@example.com""","""phone""":"""090-1111-2222"""}'
+```
+
+実行結果（例）：
+
 ```json
-{"id":"2","message":"Created"}
+{"id":3,"message":"Created"}
 ```
 
 一覧取得で確認します。
@@ -235,8 +279,8 @@ curl http://localhost:8000/api/contacts
 
 ```json
 [
-  {"id":"1","name":"鈴木 花子","email":"hanako@example.com","phone":"080-9876-5432"},
-  {"id":"2","name":"田中 太郎","email":"taro@example.com","phone":"090-1111-2222"}
+  {"id":2,"name":"鈴木 花子","email":"hanako@example.com","phone":"080-9876-5432"},
+  {"id":3,"name":"田中 太郎","email":"taro@example.com","phone":"090-1111-2222"}
 ]
 ```
 
@@ -277,22 +321,34 @@ if ($method === "PUT" && $id !== null) {
 
 ### 確認
 
+macOS の場合：
+
 ```bash
-curl -X PUT http://localhost:8000/api/contacts/2 \
+curl -X PUT http://localhost:8000/api/contacts/3 \
   -H "Content-Type: application/json" \
   -d '{"name":"田中 次郎","email":"jiro@example.com","phone":"090-3333-4444"}'
 ```
+
+Windows の場合：
+
+```bash
+curl.exe -X PUT http://localhost:8000/api/contacts/3 `
+  -H "Content-Type: application/json" `
+  -d '{"""name""":"""田中 次郎""","""email""":"""jiro@example.com""","""phone""":"""090-3333-4444"""}'
+```
+
+実行結果：
 
 ```json
 {"message":"Updated"}
 ```
 
 ```bash
-curl http://localhost:8000/api/contacts/2
+curl http://localhost:8000/api/contacts/3
 ```
 
 ```json
-{"id":"2","name":"田中 次郎","email":"jiro@example.com","phone":"090-3333-4444"}
+{"id":3,"name":"田中 次郎","email":"jiro@example.com","phone":"090-3333-4444"}
 ```
 
 ---
@@ -313,9 +369,19 @@ if ($method === "DELETE" && $id !== null) {
 
 ### 確認
 
+macOS の場合：
+
 ```bash
-curl -X DELETE http://localhost:8000/api/contacts/2
+curl -X DELETE http://localhost:8000/api/contacts/3
 ```
+
+Windows の場合：
+
+```bash
+curl.exe -X DELETE http://localhost:8000/api/contacts/3
+```
+
+実行結果：
 
 ```json
 {"message":"Deleted"}
@@ -327,7 +393,7 @@ curl http://localhost:8000/api/contacts
 
 ```json
 [
-  {"id":"1","name":"鈴木 花子","email":"hanako@example.com","phone":"080-9876-5432"}
+  {"id":2,"name":"鈴木 花子","email":"hanako@example.com","phone":"080-9876-5432"}
 ]
 ```
 
@@ -373,7 +439,7 @@ if ($method === "GET" && $id === null) {
 }
 
 // 1件取得
-elseif ($method === "GET" && $id !== null) {
+if ($method === "GET" && $id !== null) {
   $stmt = $pdo->prepare("SELECT * FROM contacts WHERE id = ?");
   $stmt->execute([$id]);
   $contact = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -388,7 +454,7 @@ elseif ($method === "GET" && $id !== null) {
 }
 
 // 登録
-elseif ($method === "POST") {
+if ($method === "POST" && $id === null) {
   $input = json_decode(file_get_contents("php://input"), true);
   $stmt  = $pdo->prepare("INSERT INTO contacts (name, email, phone) VALUES (?, ?, ?)");
   $stmt->execute([$input["name"], $input["email"] ?? null, $input["phone"] ?? null]);
@@ -398,7 +464,7 @@ elseif ($method === "POST") {
 }
 
 // 更新
-elseif ($method === "PUT" && $id !== null) {
+if ($method === "PUT" && $id !== null) {
   $input = json_decode(file_get_contents("php://input"), true);
   $stmt  = $pdo->prepare("UPDATE contacts SET name = ?, email = ?, phone = ? WHERE id = ?");
   $stmt->execute([$input["name"], $input["email"] ?? null, $input["phone"] ?? null, $id]);
@@ -407,7 +473,7 @@ elseif ($method === "PUT" && $id !== null) {
 }
 
 // 削除
-elseif ($method === "DELETE" && $id !== null) {
+if ($method === "DELETE" && $id !== null) {
   $stmt = $pdo->prepare("DELETE FROM contacts WHERE id = ?");
   $stmt->execute([$id]);
   echo json_encode(["message" => "Deleted"]);

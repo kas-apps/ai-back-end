@@ -66,12 +66,26 @@
 
 試しに、`curl` で `name` を空にして送信してみます。
 
+macOS の場合：
+
 ```bash
 curl -X POST http://localhost:8000/api/contacts \
   -H "Content-Type: application/json" \
   -d '{"name":"","email":"test@example.com"}'
+```
 
-# 実行例 → {"id":"4","message":"Created"}
+Windows の場合：
+
+```bash
+curl.exe -X POST http://localhost:8000/api/contacts `
+  -H "Content-Type: application/json" `
+  -d '{"""name""":"""""","""email""":"""test@example.com"""}'
+```
+
+実行例：
+
+```bash
+{"id":"4","message":"Created"}
 ```
 
 > **サーバーサイドのバリデーションが本番です。**  
@@ -157,7 +171,7 @@ function get_pdo(): PDO {
 }
 ```
 
-`api/index.php` の冒頭を書き換えます。
+`api/index.php` の冒頭5行を書き換えます。
 
 ```php
 <?php
