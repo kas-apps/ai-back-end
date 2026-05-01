@@ -94,7 +94,8 @@ DELETE /contacts/{id}   削除
   ```yaml
   ---
   marp: true
-  theme: default
+  theme: udemy
+  footer: "<div>[ここにスライドのタイトルを入力する]</div>"
   paginate: true
   ---
   ```

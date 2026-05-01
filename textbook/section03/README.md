@@ -246,17 +246,23 @@ echo json_encode([
 
 ### 実行する
 
-macOS の場合：
+#### macOS(zsh) / Linux(bash) / Windows(PowerShell 7.x)
 
 ```bash
 curl http://localhost:8000/api/index.php
 ```
 
-Windows の場合： `curl` コマンドに `.exe` を付けます。
+#### Windows(PowerShell 5.1)
+
+`curl` コマンドに `.exe` を付けます。
 
 ```bash
 curl.exe http://localhost:8000/api/index.php
 ```
+
+> PowerShell 5.1 では、`curl` は `Invoke-WebRequest` という PowerShell コマンドの 「エイリアス（別名）」 です。そのため、Linux の `curl` と同じ感覚でオプション（-d や -H など）を使うとエラーになります。
+
+#### 実行結果
 
 ターミナルに以下のようなレスポンスが表示されます。
 
@@ -300,24 +306,40 @@ if ($path === "/api/hello") {
 
 以下のURLにアクセスして、それぞれ異なるレスポンスが返ることを確認します。
 
-macOS の場合：
+#### macOS(zsh) / Linux(bash) / Windows(PowerShell 7.x)
 
 ```bash
 curl http://localhost:8000/api/hello
-# → {"message":"Hello"}
-
-curl http://localhost:8000/api/other
-# → {"error":"Not Found"}
 ```
 
-Windows の場合：
+#### Windows(PowerShell 5.x)
 
 ```bash
 curl.exe http://localhost:8000/api/hello
-# → {"message":"Hello"}
+```
 
+#### 実行結果
+
+```bash
+{"message":"Hello"}
+```
+
+#### macOS(zsh) / Linux(bash) / Windows(PowerShell 7.x)
+
+```bash
+curl http://localhost:8000/api/other
+```
+
+#### Windows(PowerShell 5.x)
+
+```bash
 curl.exe http://localhost:8000/api/other
-# → {"error":"Not Found"}
+```
+
+#### 実行結果
+
+```bash
+{"error":"Not Found"}
 ```
 
 > **ポイント：**  

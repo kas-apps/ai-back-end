@@ -69,9 +69,9 @@ echo json_encode($contacts, JSON_UNESCAPED_UNICODE);
 - そのリクエスト中は使える
 - でも次のリクエストでは `$contacts` が空に戻る
 
-確認コマンド：
+### 確認コマンド
 
-macOS の場合：
+#### macOS(zsh) / Linux(bash)
 
 ```bash
 curl -X POST http://localhost:8000/api/index.php \
@@ -79,8 +79,19 @@ curl -X POST http://localhost:8000/api/index.php \
   -d '{"name":"田中 太郎","email":"taro@example.com"}'
 ```
 
-Windows の場合：
-PowerShellから外部プログラム `curl.exe` にダブルクォートを含む文字列を渡す際、`"""` （三重引用符）で囲むと正しくエスケープされます。
+#### Windows(PowerShell 7.x)
+
+PowerShell で複数行のコマンドを入力するには、改行の前にバッククォート（`）を使う必要があります。
+
+```bash
+curl -X POST http://localhost:8000/api/index.php `
+  -H "Content-Type: application/json" `
+  -d '{"name":"田中 太郎","email":"taro@example.com"}'
+```
+
+#### Windows(PowerShell 5.x)
+
+PowerShell 5 から外部プログラム `curl.exe` にダブルクォートを含む文字列を渡す際、`"""` （三重引用符）で囲むと正しくエスケープされます。
 
 ```bash
 curl.exe -X POST http://localhost:8000/api/index.php `
@@ -89,6 +100,7 @@ curl.exe -X POST http://localhost:8000/api/index.php `
 ```
 
 実行結果：
+
 ```bash
 [{"id":1,"name":"田中 太郎","email":"taro@example.com"}]
 ```

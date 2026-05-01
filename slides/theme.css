@@ -104,11 +104,16 @@ section.center {
   text-align: center;
 }
 
-section.tight {
+section.tight {  
   line-height: 1.2;
 
-  & p {
+  & p, ul, ol, pre, table {
+    padding-block: 2px;
     margin-block: 0 4px;
+  }
+
+  & li {
+    margin-block: 0px;
   }
 }
 
@@ -310,6 +315,10 @@ th {
 tr th,
 tr td:first-child {
   white-space: nowrap;
+
+  & code {
+    white-space: nowrap;
+  }
 }
 
 pre {
@@ -404,6 +413,10 @@ pre :where(.hljs-variable) {
 
 pre :where(.hljs-string) {
   color: navy;
+}
+
+pre :where(.hljs-subst) {
+  color: blue;
 }
 
 pre :where(.hljs-meta) {

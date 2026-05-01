@@ -1,4 +1,6 @@
 
+.DS_Store
+
 slides/scripts/
 slides/export/
 slides/template.md
