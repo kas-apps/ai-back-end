@@ -1,8 +1,8 @@
 ---
 marp: true
 theme: udemy
-footer: "<div>AI時代のためのバックエンド開発入門</div>"
-paginate: true
+footer: "<div>設計と改善</div>"
+paginate: false
 ---
 
 <!-- _class: title -->
@@ -45,7 +45,11 @@ paginate: true
 
 `curl` を使えば、フロントエンドのチェックを通らずに直接APIへリクエストを送れます。
 
+<div class="tip">
+
 > 名前が空のまま登録フォームを送信した場合、どうなるでしょうか？
+
+</div>
 
 ---
 
@@ -97,6 +101,12 @@ curl.exe -X POST http://localhost:8000/api/contacts `
 | フロントエンド | 画面の表示・ユーザーの入力受け取り・APIの呼び出し |
 | バックエンド | データの検証・処理・DBへの命令 |
 | データベース | データの永続的な保存 |
+
+<div class="text-center">
+
+![h:180px](../assets/section01/client-server-model.png)
+
+</div>
 
 ---
 

@@ -1,8 +1,8 @@
 ---
 marp: true
 theme: udemy
-footer: "<div>AI時代のためのバックエンド開発入門</div>"
-paginate: true
+footer: "<div>SQLite 入門</div>"
+paginate: false
 ---
 
 <!-- _class: title -->
@@ -255,7 +255,11 @@ SELECT * FROM contacts;
 
 `id = 1` のレコードが消え、`id = 2` のレコードだけが残っています。
 
+<div class="warning">
+
 > `DELETE FROM contacts;` のように `WHERE` を書かないと、**全件削除**になります。
+
+</div>
 
 ---
 
@@ -277,21 +281,6 @@ SELECT * FROM contacts;
 
 この4つを合わせて **CRUD**（Create / Read / Update / Delete）と呼びます。  
 データベースを扱う操作の大部分は、このCRUDに集約されます。
-
----
-
-## SQLとLocalStorageを比べる
-
-| 操作 | LocalStorage | SQL |
-|------|-------------|-----|
-| 保存 | `setItem()` | `INSERT INTO ...` |
-| 取得 | `getItem()` | `SELECT * FROM ...` |
-| 検索 | 自前で実装が必要 | `WHERE name = '...'` |
-| 並び替え | 自前で実装が必要 | `ORDER BY name` |
-| 削除 | `removeItem()` | `DELETE FROM ... WHERE id = ...` |
-
-SQLは、データを扱うための専用言語です。  
-検索・並び替え・集計など、LocalStorageでは難しかった操作をシンプルな文で記述できます。
 
 ---
 

@@ -1,8 +1,8 @@
 ---
 marp: true
 theme: udemy
-footer: "<div>AI時代のためのバックエンド開発入門</div>"
-paginate: true
+footer: "<div>データの永続化</div>"
+paginate: false
 ---
 
 <!-- _class: title -->
@@ -99,7 +99,7 @@ curl -X POST http://localhost:8000/api/index.php `
   -d '{"name":"田中 太郎","email":"taro@example.com"}'
 ```
 
-#### Windows PowerShell 5.x
+#### Windows PowerShell 5.1
 
 <!-- PowerShell 5 から外部プログラム `curl.exe` にダブルクォートを含む文字列を渡す際、`"""` （三重引用符）で囲むと正しくエスケープされます。 -->
 

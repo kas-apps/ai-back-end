@@ -1,8 +1,8 @@
 ---
 marp: true
 theme: udemy
-footer: "<div>AI時代のためのバックエンド開発入門</div>"
-paginate: true
+footer: "<div>知らないと危険な Web セキュリティ入門</div>"
+paginate: false
 ---
 
 <!-- _class: title -->

@@ -1,8 +1,8 @@
 ---
 marp: true
 theme: udemy
-footer: "<div>AI時代のためのバックエンド開発入門</div>"
-paginate: true
+footer: "<div>イントロダクション</div>"
+paginate: false
 ---
 
 <!-- _class: title -->
@@ -111,6 +111,10 @@ AIに頼ること自体が悪いのではありません。
 
 ## フロントエンドだけでできること／できないこと
 
+<div class="flex items-center">
+
+<div>
+
 ### できること
 
 - 画面を表示する
@@ -122,6 +126,14 @@ AIに頼ること自体が悪いのではありません。
 - 別の端末から同じデータを見る
 - 複数ユーザーで同じデータを共有する
 - データをサーバー側で一元管理する
+
+</div>
+<div class="flex-1 text-center">
+
+![h:400px](../assets/section01/front-end.png)
+
+</div>
+</div>
 
 ###### 本格的なWebアプリには、バックエンドが必要
 

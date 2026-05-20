@@ -508,6 +508,18 @@ img {
   flex: 2;
 }
 
+.space-between {
+  justify-content: space-between;
+}
+
+.space-around {
+  justify-content: space-around;
+}
+
+.space-evenly {
+  justify-content: space-evenly;
+}
+
 .items-start {
   align-items: flex-start;
 }
